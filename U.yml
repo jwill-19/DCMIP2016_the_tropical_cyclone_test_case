@@ -1,0 +1,27 @@
+data_path: "/glade/p/univ/unsb0017/DCMIP_2016/"
+
+colors:
+    acme-a: "r"
+    cam-se: "g"
+    csu_CP: "b"
+    csu_LZ: "c"
+    dynamico: "y"
+    fv3_dzlow: "k"
+    fvm: "orange"
+    gem: "brown"
+    icon: "navy"
+    nicam: "skyblue"
+
+rjpbl:
+    interp_latlon:
+        50km:
+            acme-a: "acme-a/publish/acme.162-rjpbl.r50.L30.interp_latlon.hydro.U.nc"
+            cam-se: "cam-se/publish/cam-se.162-rjpbl.r50.L30.interp_latlon.hydro.control.U.nc"
+            csu_CP: "csu/publish/csu_CP/csu.162.r050.L30.interp_latlon.hydro.CP_default.rotated.U.nc"
+            csu_LZ: "csu/publish/csu_LZ/csu.162.r050.L30.interp_latlon.hydro.LZ_default.rotated.U.nc"
+            dynamico: "dynamico/publish/dynamico.162.50km.L30.hex.hydro.tropical_cyclone/dynamico.162.50km.L30.hex_interp_latlon.hydro.tropical_cyclone.U.nc"
+            fv3_dzlow: "fv3/publish/release_v1.2_DCMIP_dzlow/fv3.162-lsprecip.r50.L30.interp_latlon.nonhydro/fv3.162-lsprecip.r50.L30.interp_latlon.nonhydro_instant.nc"  
+            fvm: "fvm/publish/fvm.162.r50.L30.nonhydro.interp_latlon.U.nc"
+            gem: "gem/publish/Test162_RJ_r50/gem.162-rjpbl.r50.L30.interp_latlon.nonhydro.del6.u.nc"
+            icon: "icon/publish/icon.162.r50.L30.interp_latlon.nonhydro.dt200_Reed_PBL.U.nc"
+            nicam: "nicam/publish/nicam.162-rjpbl.r50.L30.interp_latlon.nonhydro.U.nc"
