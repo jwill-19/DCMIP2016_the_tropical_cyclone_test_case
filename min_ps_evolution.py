@@ -4,10 +4,13 @@ import xarray as xr
 import matplotlib.pyplot as plt
 from utils import open_config
 
+test_case = "rjpbl"
+grid = "interp_latlon"
 resolution = "50km"
+
 config = "/glade/u/home/jwillson/dynamical-core/PS.yml"
 ps_files = open_config(config)
-models = list(ps_files["rjpbl"]["interp_latlon"][f"{resolution}"].keys())
+models = list(ps_files[f"{test_case}"][f"{grid}"][f"{resolution}"].keys())
 colors = ps_files["colors"]
 
 fig, ax = plt.subplots(figsize=(12,7), tight_layout=True)
@@ -17,7 +20,7 @@ ax.set_ylabel("Min Surface Pressure (Pa)", fontsize=16)
 
 for model in models:
     min_ps = []
-    file = ps_files["data_path"] + ps_files["rjpbl"]["interp_latlon"][f"{resolution}"][model]
+    file = ps_files["data_path"] + ps_files[f"{test_case}"][f"{grid}"][f"{resolution}"][model]
     data = xr.open_dataset(file, decode_times=False)
     
     if model == 'dynamico':
@@ -44,4 +47,4 @@ for model in models:
     ax.plot(time, min_ps, color=colors[model], label=model)
         
 ax.legend(fontsize=12)
-plt.savefig(f"/glade/u/home/jwillson/dynamical-core/figures/ps_evolution_{resolution}.png", dpi=300, bbox_inches='tight')
+plt.savefig(f"/glade/u/home/jwillson/dynamical-core/figures/ps_{test_case}_{grid}_{resolution}.png", dpi=300, bbox_inches='tight')
