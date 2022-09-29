@@ -1,0 +1,40 @@
+acme-a:
+    levels: "hybrid"
+    positive: "down"
+    color: "r"
+cam-se: 
+    levels: "hybrid"
+    positive: "down"
+    color: "g"
+csu_CP: 
+    levels: "height"
+    positive: "up"
+    color: "b"
+csu_LZ: 
+    levels: "height"
+    positive: "up"
+    color: "c"
+dynamico: 
+    levels: "pressure"
+    positive: "up"    #listed as down in the data
+    color: "y"
+fv3_dzlow: 
+    levels: "pressure"
+    positive: "down"
+    color: "k"
+fvm: 
+    levels: "height"
+    positive: "up"
+    color: "orange"
+gem: 
+    levels: "hybrid"
+    positive: "down" 
+    color: "brown"
+icon: 
+    levels: "pressure"
+    positive: "down"
+    color: "navy"
+nicam: 
+    levels: "height"
+    positive: "up"
+    color: "skyblue"

@@ -1,0 +1,10 @@
+rjpbl:
+    interp_latlon:
+        50km:
+            csu_CP: "/glade/p/univ/unsb0017/DCMIP_2016/csu/publish/csu_CP/csu.162.r050.L30.interp_latlon.hydro.CP_default.rotated.P.nc"
+            csu_LZ: "/glade/p/univ/unsb0017/DCMIP_2016/csu/publish/csu_LZ/csu.162.r050.L30.interp_latlon.hydro.LZ_default.rotated.P.nc"
+            dynamico: "/glade/p/univ/unsb0017/DCMIP_2016/dynamico/publish/dynamico.162.50km.L30.hex.hydro.tropical_cyclone/dynamico.162.50km.L30.hex_interp_latlon.hydro.tropical_cyclone.P.nc"
+            fv3_dzlow: "/glade/p/univ/unsb0017/DCMIP_2016/fv3/publish/release_v1.2_DCMIP_dzlow/fv3.162-lsprecip.r50.L30.interp_latlon.nonhydro/fv3.162-lsprecip.r50.L30.interp_latlon.nonhydro_instant.nc"  
+            fvm: "/glade/p/univ/unsb0017/DCMIP_2016/fvm/publish/fvm.162.r50.L30.nonhydro.interp_latlon.P.nc"
+            icon: "/glade/p/univ/unsb0017/DCMIP_2016/icon/publish/icon.162.r50.L30.interp_latlon.nonhydro.dt200_Reed_PBL.P.nc"
+            nicam: "/glade/p/univ/unsb0017/DCMIP_2016/nicam/publish/nicam.162-rjpbl.r50.L30.interp_latlon.nonhydro.P.nc"
