@@ -2,4 +2,4 @@ rjpbl:
     interp_latlon:
         50km:
             cam-se: "/glade/p/univ/unsb0017/DCMIP_2016/cam-se/publish/cam-se.162-rjpbl.r50.L30.interp_latlon.hydro.control.Z.nc"
-            gem: "/glade/p/univ/unsb0017/DCMIP_2016/gem/publish/Test162_RJ_r50/gem.162-rjpbl.r50.L30.interp_latlon.nonhydro.del6.phim.nc"
+            gem: "/glade/p/univ/unsb0017/DCMIP_2016/gem/publish/Test162_RJ_r50/gem.162-rjpbl.r50.L30.interp_latlon.nonhydro.del6.phii.nc"

@@ -42,7 +42,12 @@ for model in models:
             max_ws.append(np.max(np.sqrt(np.square(u_interp.U.isel(time=i).values)
                                         +np.square(v_interp.V.isel(time=i).values))))
     else:
-        z = pressure_to_height(model)
+        if model == 'gem':
+            z_files = open_config("Z")
+            z_data = open_dataset(z_files, model)
+            z = z_data.PHII.values        #geopotential height at every point
+        else:
+            z = pressure_to_height(model)
         if model == 'dynamico':
             time = u_data.time_counter.values/(60.0*60.0*24.0)
         else:
@@ -62,8 +67,12 @@ for model in models:
                     u_ijk = u[i,:,j,k]
                     v_ijk = v[i,:,j,k]
                     z_ijk = z[i,:,j,k]
-                    u_interp = np.interp(1000.0, z_ijk, u_ijk)
-                    v_interp = np.interp(1000.0, z_ijk, v_ijk)
+                    if model_conf[model]['positive'] == 'down':
+                        u_interp = np.interp(1000.0, z_ijk[::-1], u_ijk[::-1])
+                        v_interp = np.interp(1000.0, z_ijk[::-1], v_ijk[::-1])
+                    else:
+                        u_interp = np.interp(1000.0, z_ijk, u_ijk)
+                        v_interp = np.interp(1000.0, z_ijk, v_ijk)
                     res = np.sqrt(np.square(u_interp)+np.square(v_interp))
                     max_wind = max(res, max_wind) 
             max_ws.append(max_wind)

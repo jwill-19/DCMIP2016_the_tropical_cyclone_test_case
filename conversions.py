@@ -43,19 +43,6 @@ def hybrid_to_pressure(model):
         for i in range(pm.shape[0]):
             for j in range(pm.shape[1]):
                 pm[:,j,:,:] = hyam[j]*p00+hybm[j]*ps[i,:,:]
-        
-    if model == 'gem':
-        u_files = open_config("U")
-        u_data = open_dataset(u_files, model)
-        pm = np.zeros((u_data.time.shape[0], u_data.lev.shape[0], 
-                   u_data.lat.shape[0], u_data.lon.shape[0]))
-        ps = ps_data.PS.values
-        hyam = u_data.hyam.values
-        hybm = u_data.hybm.values
-        
-        for i in range(pm.shape[0]):
-            for j in range(pm.shape[1]):
-                pm[:,j,:,:] = (1/100.0)*np.exp(hyam[j]+hybm[j]*np.log(ps[i,:,:]/p00))
                 
     return pm
 
@@ -70,9 +57,10 @@ def pressure_to_height(model):
     z (numpy ndarray): height at every time, lev, lat, and lon
     
     """
-    g = 9.80616
-    Rd = 287.0
-    Mv = 0.608
+    g = 9.80616     #acceleration due to gravity
+    Rd = 287.0      #gas constant for dry air
+    Mv = 0.608      #constant for virtual temp. conversion
+    Ts = 302.15     #prescribed surface temp.
     
     model_conf = open_config("models")
     t_files = open_config("T")
@@ -101,23 +89,30 @@ def pressure_to_height(model):
         T = t_data.T.values
     
     if model == 'dynamico':
-        Z = np.zeros((t_data.time_counter.shape[0], t_data.lev.shape[0], t_data.lat.shape[0], t_data.lon.shape[0]))
+        Z = np.zeros((t_data.time_counter.shape[0], t_data.lev.shape[0], 
+                      t_data.lat.shape[0], t_data.lon.shape[0]))
         for i in range(Z.shape[0]):
             for j in range(Z.shape[1]):
                 if j == 0:
-                    Z[i,j,:,:] = (1/g)*Rd*T[i,j,:,:]*(1+Mv*Q[i,j,:,:])*(1/2.0)*(np.log(P[i,j,:,:])-np.log(PS[i,:,:]))
+                    Ti = ((Ts+T[i,j,:,:])/2.0)*(1+Mv*Q[i,j,:,:])
+                    Z[i,j,:,:] = (Rd/g)*Ti*np.log(PS[i,:,:]/P[i,j,:,:])
                 else:
-                    Z[i,j,:,:] = Z[i,j-1,:,:]+(1/g)*Rd*T[i,j,:,:]*(1+Mv*Q[i,j,:,:])*np.log(P[i,j-1,:,:]/P[i,j,:,:])
+                    Ti = ((T[i,j,:,:]+T[i,j-1,:,:])/2.0)*(1+Mv*(Q[i,j,:,:]+Q[i,j-1,:,:])/2.0)
+                    Z[i,j,:,:] = Z[i,j-1,:,:]+(Rd/g)*Ti*np.log(P[i,j-1,:,:]/P[i,j,:,:])
     else:
         if model == 'fv3_dzlow':
-            Z = np.zeros((t_data.time.shape[0], t_data.pfull.shape[0], t_data.lat.shape[0], t_data.lon.shape[0]))
+            Z = np.zeros((t_data.time.shape[0], t_data.pfull.shape[0], 
+                          t_data.lat.shape[0], t_data.lon.shape[0]))
         else:
-            Z = np.zeros((t_data.time.shape[0], t_data.lev.shape[0], t_data.lat.shape[0], t_data.lon.shape[0]))
+            Z = np.zeros((t_data.time.shape[0], t_data.lev.shape[0], 
+                          t_data.lat.shape[0], t_data.lon.shape[0]))
         for i in range(Z.shape[0]):
             for j in range(Z.shape[1]-1, -1, -1):
                 if j == Z.shape[1]-1:
-                    Z[i,j,:,:] = (1/g)*Rd*T[i,j,:,:]*(1+Mv*Q[i,j,:,:])*(1/2.0)*(np.log(P[i,j,:,:])-np.log(PS[i,:,:]))
+                    Ti = ((Ts+T[i,j,:,:])/2.0)*(1+Mv*Q[i,j,:,:])
+                    Z[i,j,:,:] = (Rd/g)*Ti*np.log(PS[i,:,:]/P[i,j,:,:])
                 else:
-                    Z[i,j,:,:] = Z[i,j+1,:,:]+(1/g)*Rd*T[i,j,:,:]*(1+Mv*Q[i,j,:,:])*np.log(P[i,j+1,:,:]/P[i,j,:,:])
+                    Ti = ((T[i,j,:,:]+T[i,j+1,:,:])/2.0)*(1+Mv*(Q[i,j,:,:]+Q[i,j+1,:,:])/2.0)
+                    Z[i,j,:,:] = Z[i,j+1,:,:]+(Rd/g)*Ti*np.log(P[i,j+1,:,:]/P[i,j,:,:])
     
     return Z
