@@ -19,6 +19,8 @@ fig, ax = plt.subplots(figsize=(12,7), tight_layout=True)
 ax.set_title(f"Max Surface Wind Speed Evolution ({resolution})", fontsize=22)
 ax.set_xlabel("Days", fontsize=16)
 ax.set_ylabel("Max Surface Wind Speed (m/s)", fontsize=16)
+ax.tick_params(axis='x', labelsize=12)
+ax.tick_params(axis='y', labelsize=12)
 
 for model in models:
     max_ws = []
@@ -69,4 +71,4 @@ for model in models:
     ax.plot(time, max_ws, color=model_conf[model]['color'], label=model)
 
 ax.legend(fontsize=12)
-plt.savefig(f"/glade/u/home/jwillson/dynamical-core/figures/msws_{test_case}_{grid}_{resolution}.png", dpi=300, bbox_inches='tight')
+plt.savefig(f"/glade/u/home/jwillson/dynamical-core/figures/{test_case}_{grid}_{resolution}/msws_evolution.png", dpi=300, bbox_inches='tight')

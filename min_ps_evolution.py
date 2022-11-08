@@ -18,6 +18,8 @@ fig, ax = plt.subplots(figsize=(12,7), tight_layout=True)
 ax.set_title(f"Min Surface Pressure Evolution ({resolution})", fontsize=22)
 ax.set_xlabel("Days", fontsize=16)
 ax.set_ylabel("Min Surface Pressure (Pa)", fontsize=16)
+ax.tick_params(axis='x', labelsize=12)
+ax.tick_params(axis='y', labelsize=12)
 
 for model in models:
     min_ps = []
@@ -47,4 +49,4 @@ for model in models:
     ax.plot(time, min_ps, color=model_conf[model]['color'], label=model)
         
 ax.legend(fontsize=12)
-plt.savefig(f"/glade/u/home/jwillson/dynamical-core/figures/ps_{test_case}_{grid}_{resolution}.png", dpi=300, bbox_inches='tight')
+plt.savefig(f"/glade/u/home/jwillson/dynamical-core/figures/{test_case}_{grid}_{resolution}/min_ps_evolution.png", dpi=300, bbox_inches='tight')

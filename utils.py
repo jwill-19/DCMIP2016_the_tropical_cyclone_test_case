@@ -1,5 +1,6 @@
 import yaml
 import xarray as xr
+import numpy as np
 
 def open_config(filename):
     """
@@ -13,7 +14,7 @@ def open_config(filename):
     in a nested dictionary.
     
     """
-    config = f"/glade/u/home/jwillson/dynamical-core/{filename}.yml"
+    config = f"/glade/u/home/jwillson/dynamical-core/config/{filename}.yml"
     with open(config) as f:
         conf = yaml.load(f, Loader=yaml.FullLoader)
     return conf
@@ -40,4 +41,28 @@ def open_dataset(files, model):
     
     return data
     
+def get_radprof_arr(filename):
+    """
+    Extracts the radial profile array from the TempestExtremes
+    output file. 
     
+    Inputs:
+        filename (string): Name of file
+        
+    Outputs:
+        radprof_arr (np.ndarray): Output array of radial profiles.
+        rsize_arr (np.array): Output array for radius size.
+    """
+    radprof_arr = []
+    with open(filename, 'r') as file:
+        for line in file:
+            rprof = line.split()[-1][2:-2].split(',') #get array of numbers as strings
+            if len(rprof) == 1:
+                continue
+            else:
+                for i in range(len(rprof)):
+                    rprof[i] = float(rprof[i])  #convert each element to a float
+            
+            radprof_arr.append(rprof)
+            
+    return np.array(radprof_arr)
