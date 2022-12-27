@@ -15,7 +15,7 @@ def open_config(filename):
     
     """
     config = f"/glade/u/home/jwillson/dynamical-core/config/{filename}.yml"
-    with open(config) as f:
+    with open(config) as f:                           #use yml to load the file as a dictionary
         conf = yaml.load(f, Loader=yaml.FullLoader)
     return conf
 
@@ -31,13 +31,13 @@ def open_dataset(files, model):
     Data (Xarray Dataset): Data
     
     """
-    conf = open_config("conf")
+    conf = open_config("conf")      #specify parameters from config file
     test_case = conf['test_case']
     grid = conf['grid']
     resolution = conf['resolution']
     
-    file = files[f"{test_case}"][f"{grid}"][f"{resolution}"][model]
-    data = xr.open_dataset(file, decode_times=False)
+    file = files[f"{test_case}"][f"{grid}"][f"{resolution}"][model]  #get filename
+    data = xr.open_dataset(file, decode_times=False)                 #use xarray to open the dataset
     
     return data
     
