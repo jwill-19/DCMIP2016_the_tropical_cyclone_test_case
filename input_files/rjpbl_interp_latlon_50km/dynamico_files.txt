@@ -1,0 +1,1 @@
+/glade/work/jwillson/dynamical-core/rjpbl_interp_latlon_50km/dynamico.PS.final.nc;/glade/work/jwillson/dynamical-core/rjpbl_interp_latlon_50km/dynamico.U.nc;/glade/work/jwillson/dynamical-core/rjpbl_interp_latlon_50km/dynamico.V.nc
