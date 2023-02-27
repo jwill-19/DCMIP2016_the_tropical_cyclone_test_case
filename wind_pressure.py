@@ -3,7 +3,7 @@ import xarray as xr
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
-from utils import open_config, open_dataset, get_radprof_arr
+from utils import open_config, open_dataset, get_radprof_arr, get_plot_name
 from curve_fitting import quadratic
 
 conf = open_config("conf")      #open config file and get parameters
@@ -45,11 +45,11 @@ for ax, model in zip(ax.ravel(), models):
     ps_fit = np.linspace(np.min(ps), np.max(ps), 1000)
     maxw_fit = quadratic(ps_fit, popt[0], popt[1], popt[2])
     
-    ax.set_title(model, fontsize=20)
+    ax.set_title(get_plot_name(model), fontsize=20)
     ax.tick_params(axis='x', labelsize=12)
     ax.tick_params(axis='y', labelsize=12)
-    ax.plot(ps, maxw, '.', markersize=10, color=model_conf[model]['color'], label=model)
-    ax.plot(ps_fit, maxw_fit, '-', color=model_conf[model]['color'], label=model)
+    ax.plot(ps, maxw, '.', markersize=10, color=model_conf[model]['color'], label=get_plot_name(model))
+    ax.plot(ps_fit, maxw_fit, '-', color=model_conf[model]['color'], label=get_plot_name(model))
 
 fig.add_subplot(111, frameon=False)
 plt.tick_params(labelcolor='none', which='both', top=False, bottom=False, left=False, right=False)

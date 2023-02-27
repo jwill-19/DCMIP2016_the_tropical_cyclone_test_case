@@ -103,7 +103,7 @@ for var in vars_:
             
         #save as file, if permission denied save as new file
         try:
-            data.to_netcdf(f"/glade/work/jwillson/dynamical-core/{test_case}_{grid}_{resolution}/{model}.{var}.nc")
+            data.to_netcdf(f"/glade/scratch/jwillson/dynamical-core/{test_case}_{grid}_{resolution}/{model}.{var}.nc")
         except:
-            data.to_netcdf(f"/glade/work/jwillson/dynamical-core/{test_case}_{grid}_{resolution}/{model}.{var}.1.nc")
+            data.to_netcdf(f"/glade/scratch/jwillson/dynamical-core/{test_case}_{grid}_{resolution}/{model}.{var}.1.nc")
             print(f"Run {model} postprocessing")

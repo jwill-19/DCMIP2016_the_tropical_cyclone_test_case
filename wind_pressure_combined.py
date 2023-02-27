@@ -3,7 +3,7 @@ import xarray as xr
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
-from utils import open_config, open_dataset, get_radprof_arr
+from utils import open_config, open_dataset, get_radprof_arr, get_plot_name
 from curve_fitting import quadratic
 
 conf = open_config("conf")      #open config file and get parameters
@@ -12,15 +12,22 @@ grid = conf['grid']
 resolution = conf['resolution']
 height = conf['height']
 
-model_conf = open_config("models")  #get model names from config file
-models = list(model_conf.keys())
+model_conf = open_config("models")           #open model config file
+
+if resolution == "25km":                     #get model names from config file
+    models = []
+    for model in list(model_conf.keys()):        
+        if model_conf[model]['25km'] == True:
+            models.append(model)
+else:
+    models = list(model_conf.keys())
 
 fig, ax = plt.subplots(figsize=(12,7), tight_layout=True)
-ax.set_title(f"Wind vs. Pressure ({resolution})", fontsize=22)
-ax.set_xlabel("Pressure (kPa)", fontsize=16)
-ax.set_ylabel("Wind (m/s)", fontsize=16)
-ax.tick_params(axis='x', labelsize=12)
-ax.tick_params(axis='y', labelsize=12)
+# ax.set_title(f"{height}m Wind vs. Pressure", fontsize=22)
+ax.set_xlabel("Pressure (hPa)", fontsize=22)
+ax.set_ylabel("Wind (m/s)", fontsize=22)
+ax.tick_params(axis='x', labelsize=16)
+ax.tick_params(axis='y', labelsize=16)
 
 for model in models:
     u_files = open_config("U")
@@ -44,15 +51,18 @@ for model in models:
     file2 = f'/glade/u/home/jwillson/dynamical-core/trajectories/{test_case}_{grid}_{resolution}/{model}_trajectories.csv'
     ps_data = pd.read_csv(file2)
     ps = ps_data[ps_data.columns[-2]]   #minimum surface pressure is the second to last column
-    ps = ps/1000
+    ps = ps/100
+    
+    maxw = maxw[:41]               #only keep the first track in some 25km models
+    ps = ps[:41]
     
     popt, pcov = curve_fit(quadratic, ps, maxw)    #fit a quadratic function to the data 
     ps_fit = np.linspace(np.min(ps), np.max(ps), 1000)
     maxw_fit = quadratic(ps_fit, popt[0], popt[1], popt[2])
     
-    ax.plot(ps, maxw, '.', markersize=10, color=model_conf[model]['color'], label=model)
+    ax.plot(ps, maxw, '.', markersize=10, color=model_conf[model]['color'], label=get_plot_name(model))
     ax.plot(ps_fit, maxw_fit, '-', color=model_conf[model]['color'])
     
-ax.legend(fontsize=12)
+ax.legend(fontsize=16)
 plt.savefig(f"/glade/u/home/jwillson/dynamical-core/figures/{test_case}_{grid}_{resolution}/wind_pressure_all_{height}.png",
             dpi=300, bbox_inches='tight')

@@ -11,4 +11,4 @@ def quadratic(x, a, b, c):
     """
     Quadratic function compatible with scipy.optimize.curve_fit.
     """
-        return a*x**2+b*x+c
+    return a*x**2+b*x+c

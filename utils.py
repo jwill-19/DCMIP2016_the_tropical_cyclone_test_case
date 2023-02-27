@@ -35,8 +35,9 @@ def open_dataset(files, model):
     test_case = conf['test_case']
     grid = conf['grid']
     resolution = conf['resolution']
+    data_path = conf['data_path']
     
-    file = files[f"{test_case}"][f"{grid}"][f"{resolution}"][model]  #get filename
+    file = files[f"{test_case}"][f"{grid}"][f"{resolution}"][model].format(data_path=data_path)  #get filename
     data = xr.open_dataset(file, decode_times=False)                 #use xarray to open the dataset
     
     return data
@@ -66,3 +67,28 @@ def get_radprof_arr(filename):
             radprof_arr.append(rprof)
             
     return np.array(radprof_arr)
+
+def get_plot_name(model):
+    """
+    Function that allows for the name of the model on figures
+    to be modified.
+    
+    Inputs:
+        model (string): original model name
+        
+    Outputs:
+        plot_name (string): name used for plot
+    """
+    name_dict = {"acme-a":"ACME-A",
+            "cam-se":"CAM-SE",
+            "csu_CP":"CSU-CP",
+            "csu_LZ":"CSU-LZ",
+            "dynamico":"DYNAMICO",
+            "fv3_dzlow":"FV3",
+            "fvm":"FVM",
+            "gem":"GEM",
+            "icon":"ICON",
+            "nicam":"NICAM"}
+   
+    plot_name = name_dict[model]
+    return plot_name

@@ -3,26 +3,33 @@ import numpy as np
 import xarray as xr
 import pandas as pd
 import matplotlib.pyplot as plt
-from utils import open_config, open_dataset
+from utils import open_config, open_dataset, get_plot_name
 
-conf = open_config("conf")
+conf = open_config("conf")                   #get parameters from config file
 test_case = conf['test_case']
 grid = conf['grid']
 resolution = conf['resolution']
 
-model_conf = open_config("models")
-models = list(model_conf.keys())
+model_conf = open_config("models")           #open model config file
+
+if resolution == "25km":                     #get model names from config file
+    models = []
+    for model in list(model_conf.keys()):        
+        if model_conf[model]['25km'] == True:
+            models.append(model)
+else:
+    models = list(model_conf.keys())
 
 ps_files = open_config("PS")
 
 fig, ax = plt.subplots(figsize=(12,7), tight_layout=True)
-ax.set_title(f"Surface Pressure Evolution at TC Center ({resolution})", fontsize=22)
+ax.set_title(f"Minimum Surface Pressure Evolution", fontsize=22)
 ax.set_xlabel("Days", fontsize=16)
 ax.set_ylabel("Surface Pressure (Pa)", fontsize=16)
 ax.tick_params(axis='x', labelsize=12)
 ax.tick_params(axis='y', labelsize=12)
 
-for model in models:
+for model in models:                     #loop through all models
     data = open_dataset(ps_files, model) #open example dataset (for time arrays) and trajectory file
     file = f'/glade/u/home/jwillson/dynamical-core/trajectories/{test_case}_{grid}_{resolution}/{model}_trajectories.csv'
     ps_data = pd.read_csv(file)
@@ -37,7 +44,9 @@ for model in models:
     else:
         time = data.time.values
     
-    ax.plot(time, ps, color=model_conf[model]['color'], label=model)
+    if resolution == "25km":
+        ps = ps[:41]                        #only keep the first track in some 25km models
+    ax.plot(time, ps, color=model_conf[model]['color'], label=get_plot_name(model))
         
 ax.legend(fontsize=12)
 plt.savefig(f"/glade/u/home/jwillson/dynamical-core/figures/{test_case}_{grid}_{resolution}/ps_center_evolution.png",
