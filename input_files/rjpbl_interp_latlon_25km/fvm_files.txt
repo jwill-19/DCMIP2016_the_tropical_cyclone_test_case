@@ -1,0 +1,1 @@
+/glade/scratch/jwillson/dynamical-core/rjpbl_interp_latlon_25km/fvm.P.nc;/glade/scratch/jwillson/dynamical-core/rjpbl_interp_latlon_25km/fvm.U.nc;/glade/scratch/jwillson/dynamical-core/rjpbl_interp_latlon_25km/fvm.V.nc;/glade/scratch/jwillson/dynamical-core/rjpbl_interp_latlon_25km/fvm.PRECL.nc
