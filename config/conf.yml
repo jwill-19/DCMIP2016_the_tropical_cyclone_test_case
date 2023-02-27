@@ -13,10 +13,10 @@ resolution: "50km"
 
 #preprocessing--------------------------------------------------------------------------------------------------------------
 
-all_models: True
+all_models: False
 #use all models or not
 
-models: ["acme-a", "cam-se", "fvm", "gem", "nicam"]
+models: ["fvm"]
 #custom list of models, use with all_models setting
 
 vars: ["PS"]

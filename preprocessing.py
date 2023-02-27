@@ -73,6 +73,12 @@ for var in vars_:
                 attrs = data1.time.attrs
                 data = data.assign_coords(time=(data1.time.values))
                 data = data.assign_coords(time=data.time.assign_attrs(attrs))
+                if var == 'PS':  #add new variable with just surface pressure and P attrs
+                    P = data.P.values
+                    P_attrs = data.P.attrs
+                    P_0 = P[:,0,:,:]
+                    data = data.assign({'PS':(('time', 'lat', 'lon'), P_0)})
+                    #data = data.assign(PS=PS.assign_attrs(P_attrs))
             
             elif model.count('csu') == 1:  #add calendar attribute
                 data1 = open_dataset(files, model)
@@ -82,7 +88,7 @@ for var in vars_:
                 data = data.assign_coords(time=data.time.assign_attrs(attrs))
         
             elif model == 'nicam':
-                if var == 'PRECL':  #avoids error where times are all copied to 0 by assigning cam-se time coord with nicam attrs
+                if var == 'PRECL':  #avoids error where times are all copied to 0 by replacing with cam-se time coord 
                     data1 = open_dataset(files, 'cam-se')
                     data2 = open_dataset(files, model)
                     attrs = data2.time.attrs
