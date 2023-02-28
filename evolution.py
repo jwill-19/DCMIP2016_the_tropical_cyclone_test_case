@@ -83,5 +83,4 @@ handles = []  #add custom legend
 for model in models:
     handles.append(mpatches.Patch(color=model_conf[model]['color'], label=get_plot_name(model)))
 ax.legend(handles=handles, bbox_to_anchor=(0.935, -0.15), ncol=5, fontsize=16)
-plt.savefig(f"/glade/u/home/jwillson/dynamical-core/figures/{test_case}_{grid}_{resolution}/evolution_combined.png",
-            dpi=300, bbox_inches='tight')
+plt.savefig(f"figures/{test_case}_{grid}_{resolution}/evolution_combined.png", dpi=300, bbox_inches='tight')

@@ -9,8 +9,8 @@ conf = open_config("conf")             #get parameters from config file
 test_case = conf['test_case']                   
 grid = conf['grid']
 resolution = conf['resolution'] 
-day = conf['day']                      #begin time average after this day
-height = conf['height']                #height of rprof to be plotted
+day = conf['day']                            #begin time average after this day
+height = conf['height']                      #height of rprof to be plotted
 
 model_conf = open_config('models')     #get list of models
 models = list(model_conf.keys())
@@ -28,17 +28,15 @@ for ax, i in zip(ax.ravel(), range(2)):
             rprof = get_radprof_arr(f"ps_rad_prof/{test_case}_{grid}_{resolution}/{model}.txt")
             rprof = rprof[start_idx:end_idx,:]
             rprof = np.mean(rprof, axis=0)
-            ax.plot(dist, rprof/100, color=model_conf[model]['color'], label=get_plot_name(model))
+            ax.plot(dist[1:], (rprof/100)[1:], color=model_conf[model]['color'])
         else:       #plot wind radial profiles
             rprof = get_radprof_arr(f"wind_rad_prof/{test_case}_{grid}_{resolution}/{model}_{height}.txt")
             rprof = rprof[start_idx:end_idx,:]
             rprof = np.mean(rprof, axis=0)
-            ax.plot(dist, rprof, color=model_conf[model]['color'], label=get_plot_name(model))
-        
-        
-    if i == 0:           #set labels, fontsizes, and x/y limits
+            ax.plot(dist[1:], rprof[1:], color=model_conf[model]['color'])
+           
+    if i == 0:           #set labels and fontsizes
         ax.set_ylabel("Pressure (hPa)", fontsize=22)
-        ax.set_ylim([900,1025])
     else:
         ax.set_xlabel("Distance from center (km)", fontsize=22)
         ax.set_ylabel("Wind Speed (m/s)", fontsize=22)
@@ -51,5 +49,4 @@ handles = []             #add custom legend
 for model in models:
     handles.append(mpatches.Patch(color=model_conf[model]['color'], label=get_plot_name(model)))
 ax.legend(handles=handles, bbox_to_anchor=(0.995, -0.15), ncol=5, fontsize=16)
-plt.savefig(f"/glade/u/home/jwillson/dynamical-core/figures/{test_case}_{grid}_{resolution}/windps_rprofs.png", 
-            dpi=300, bbox_inches='tight')
+plt.savefig(f"figures/{test_case}_{grid}_{resolution}/wprprofs_{day}to10avg_{height}m.png", dpi=300, bbox_inches='tight')

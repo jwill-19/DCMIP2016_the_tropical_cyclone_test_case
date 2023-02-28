@@ -55,5 +55,4 @@ fig.add_subplot(111, frameon=False)
 plt.tick_params(labelcolor='none', which='both', top=False, bottom=False, left=False, right=False)
 plt.xlabel("Pressure (kPa)", fontsize=20)
 plt.ylabel("Wind (m/s)", fontsize=20)
-plt.savefig(f"/glade/u/home/jwillson/dynamical-core/figures/{test_case}_{grid}_{resolution}/wind_pressure_{height}.png",
-            dpi=300, bbox_inches='tight')
+plt.savefig(f"figures/{test_case}_{grid}_{resolution}/wind_pressure_{height}.png", dpi=300, bbox_inches='tight')
