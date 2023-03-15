@@ -13,7 +13,13 @@ resolution = conf['resolution']
 height = conf['height']
 
 model_conf = open_config("models")  #get model names from config file
-models = list(model_conf.keys())
+if resolution == "25km":                     
+    models = []
+    for model in list(model_conf.keys()):        
+        if model_conf[model]['25km'] == True:
+            models.append(model)
+else:
+    models = list(model_conf.keys())
 
 fig, ax = plt.subplots(2, 5, sharex=True, sharey=True, figsize=(25,8), tight_layout=True)
 
@@ -40,6 +46,9 @@ for ax, model in zip(ax.ravel(), models):
     ps_data = pd.read_csv(file2)
     ps = ps_data[ps_data.columns[-2]]   #minimum surface pressure is the second to last column
     ps = ps/1000
+    
+    maxw = maxw[:41]                    #only keep the first track in some 25km models
+    ps = ps[:41]
     
     popt, pcov = curve_fit(quadratic, ps, maxw)    #fit a quadratic function to the data 
     ps_fit = np.linspace(np.min(ps), np.max(ps), 1000)
