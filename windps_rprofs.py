@@ -9,31 +9,44 @@ conf = open_config("conf")             #get parameters from config file
 test_case = conf['test_case']                   
 grid = conf['grid']
 resolution = conf['resolution'] 
-day = conf['day']                            #begin time average after this day
-height = conf['height']                      #height of rprof to be plotted
+day = conf['day']                      #begin time average after this day
+height = conf['height']                #height of rprof to be plotted
 
 model_conf = open_config('models')     #get list of models
 models = list(model_conf.keys())
 
+conf = open_config("conf")             #get parameters from config file
+test_case = conf['test_case']                   
+grid = conf['grid']
+resolution = conf['resolution'] 
+day = conf['day']                      #begin time average after this day
+height = conf['height']                #height of rprof to be plotted
+
+model_conf = open_config('models')     #get list of models
+models = list(model_conf.keys())
+
+dist = [i*0.25*111.321 for i in range(159)]
+midpoints = [(dist[i]+dist[i+1])/2.0 for i in range(158)]  #calculate distance based on bin size and total bins
+                                                           #and convert to distance from degrees
+time = np.array([0.25*i for i in range(41)]) #create time array in days
+start_idx = np.argwhere(time == day)[0,0]    #calculate index of specified start day
+end_idx = 41                                 #end at day 10   
+        
 fig, ax = plt.subplots(2, 1, sharex=True, figsize=(11,12), tight_layout=True)
 
 for ax, i in zip(ax.ravel(), range(2)):
     for model in models:
-        dist = [i*0.25*111.321 for i in range(159)]  #calculate distance based on bin size and total bins, convert to distance from degrees
-        time = np.array([0.25*i for i in range(41)]) #create time array in days
-        start_idx = np.argwhere(time == day)[0,0]    #calculate index of specified start day
-        end_idx = 41                                 #end at day 10   
         
         if i == 0:  #plot pressure radial profiles
             rprof = get_radprof_arr(f"ps_rad_prof/{test_case}_{grid}_{resolution}/{model}.txt")
             rprof = rprof[start_idx:end_idx,:]
             rprof = np.mean(rprof, axis=0)
-            ax.plot(dist[1:], (rprof/100)[1:], color=model_conf[model]['color'])
+            ax.plot(midpoints, (rprof/100)[1:], color=model_conf[model]['color'])
         else:       #plot wind radial profiles
             rprof = get_radprof_arr(f"wind_rad_prof/{test_case}_{grid}_{resolution}/{model}_{height}.txt")
             rprof = rprof[start_idx:end_idx,:]
             rprof = np.mean(rprof, axis=0)
-            ax.plot(dist[1:], rprof[1:], color=model_conf[model]['color'])
+            ax.plot(midpoints, rprof[1:], color=model_conf[model]['color'])
            
     if i == 0:           #set labels and fontsizes
         ax.set_ylabel("Pressure (hPa)", fontsize=22)
