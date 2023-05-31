@@ -1,3 +1,8 @@
+'''
+Author: Justin Willson
+Description: This script creates figure 7 in the DCMIP2016: the tropical cyclone test
+case manuscript.
+'''
 import numpy as np
 import xarray as xr
 import matplotlib as mpl
