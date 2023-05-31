@@ -7,3 +7,10 @@ __pycache__/
 
 # shell scripts
 *.sh
+
+# directories
+figures/
+miscellaneous/
+precip_composite/
+precip_rad_prof/
+old_figure_scripts/
