@@ -14,7 +14,7 @@ def open_config(filename):
     in a nested dictionary.
     
     """
-    config = f"/glade/u/home/jwillson/dynamical-core/config/{filename}.yml"
+    config = f"/glade/u/home/jwillson/DCMIP2016_the_tropical_cyclone_test_case/config/{filename}.yml"
     with open(config) as f:                           #use yml to load the file as a dictionary
         conf = yaml.load(f, Loader=yaml.FullLoader)
     return conf
