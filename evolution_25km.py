@@ -36,20 +36,20 @@ for ax, i in zip(ax.ravel(), range(2)):
             time = np.array([0.25*j for j in range(41)])  #standard DCMIP2016 time values
         
         if i == 0:
-            file = f'/glade/u/home/jwillson/dynamical-core/trajectories/{test_case}_{grid}_{resolution}/{model}_trajectories.csv'
+            file = f'/glade/u/home/jwillson/DCMIP2016_the_tropical_cyclone_test_case/trajectories/{test_case}_{grid}_{resolution}/{model}_trajectories.csv'
             ps_data = pd.read_csv(file)
             ps = ps_data[ps_data.columns[-2]]    #pressure is the second to last column
             ps = ps[:41]                         #only keep the first track in some 25km models                    
             ax.plot(time, ps/100, color=model_conf[model]['color'])
             
             #now use same procedure to plot original 50km curves on the same plot
-            file = f'/glade/u/home/jwillson/dynamical-core/trajectories/{test_case}_{grid}_{res50}/{model}_trajectories.csv'
+            file = f'/glade/u/home/jwillson/DCMIP2016_the_tropical_cyclone_test_case/trajectories/{test_case}_{grid}_{res50}/{model}_trajectories.csv'
             ps_data = pd.read_csv(file)
             ps = ps_data[ps_data.columns[-2]]    
             ps = ps[:41]                                            
             ax.plot(time, ps/100, linestyle='dashed', alpha=0.5, color=model_conf[model]['color'])
         else:
-            file = f'/glade/u/home/jwillson/dynamical-core/wind_rad_prof/{test_case}_{grid}_{resolution}/{model}_{height}.txt'  
+            file = f'/glade/u/home/jwillson/DCMIP2016_the_tropical_cyclone_test_case/wind_rad_prof/{test_case}_{grid}_{resolution}/{model}_{height}.txt'  
             rprof = get_radprof_arr(file) #extract radial profile from text file
             max_wind = []
 
@@ -60,7 +60,7 @@ for ax, i in zip(ax.ravel(), range(2)):
             ax.plot(time, max_wind, color=model_conf[model]['color'])
             
             #now use same procedure to plot original 50km curves on the same plot
-            file = f'/glade/u/home/jwillson/dynamical-core/wind_rad_prof/{test_case}_{grid}_{res50}/{model}_{height}.txt'  
+            file = f'/glade/u/home/jwillson/DCMIP2016_the_tropical_cyclone_test_case/wind_rad_prof/{test_case}_{grid}_{res50}/{model}_{height}.txt'  
             rprof = get_radprof_arr(file) #extract radial profile from text file
             max_wind = []
 

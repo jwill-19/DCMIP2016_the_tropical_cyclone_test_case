@@ -46,13 +46,13 @@ for model in models:
     else:
         time = data.time.values
 
-    file1 = f'/glade/u/home/jwillson/dynamical-core/wind_rad_prof/{test_case}_{grid}_{resolution}/{model}_{height}.txt'
+    file1 = f'/glade/u/home/jwillson/DCMIP2016_the_tropical_cyclone_test_case/wind_rad_prof/{test_case}_{grid}_{resolution}/{model}_{height}.txt'
     rprof = get_radprof_arr(file1)       #extract radial profile from text file
     maxw = []
     for i in range(time.shape[0]):       #append the maximum wind for each time
         maxw.append(np.max(rprof[i,:]))
     
-    file2 = f'/glade/u/home/jwillson/dynamical-core/trajectories/{test_case}_{grid}_{resolution}/{model}_trajectories.csv'
+    file2 = f'/glade/u/home/jwillson/DCMIP2016_the_tropical_cyclone_test_case/trajectories/{test_case}_{grid}_{resolution}/{model}_trajectories.csv'
     ps_data = pd.read_csv(file2)
     ps = ps_data[ps_data.columns[-2]]    #minimum surface pressure is the second to last column
     ps = ps/100
@@ -67,5 +67,5 @@ for model in models:
     ax.plot(ps, maxw, '.', markersize=10, color=model_conf[model]['color'], label=get_plot_name(model))
     ax.plot(ps_fit, maxw_fit, '-', color=model_conf[model]['color'])
     
-ax.legend(fontsize=16)
+ax.legend(fontsize=16, markerscale=3)
 plt.savefig(f"figures/{test_case}_{grid}_{resolution}/wind_pressure_all_{height}.png", dpi=300, bbox_inches='tight')

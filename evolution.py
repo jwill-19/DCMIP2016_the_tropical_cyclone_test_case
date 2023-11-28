@@ -36,7 +36,7 @@ for ax, i in zip(ax.ravel(), range(2)):
     for model in models:
         if i == 0:
             data = open_dataset(ps_files, model) #open example dataset (for time arrays) and trajectory file
-            file = f'/glade/u/home/jwillson/dynamical-core/trajectories/{test_case}_{grid}_{resolution}/{model}_trajectories.csv'
+            file = f'/glade/u/home/jwillson/DCMIP2016_the_tropical_cyclone_test_case/trajectories/{test_case}_{grid}_{resolution}/{model}_trajectories.csv'
             ps_data = pd.read_csv(file)
             ps = ps_data[ps_data.columns[-2]]    #pressure is the second to last column
 
@@ -64,7 +64,7 @@ for ax, i in zip(ax.ravel(), range(2)):
             else:
                 time = data.time.values
 
-            file = f'/glade/u/home/jwillson/dynamical-core/wind_rad_prof/{test_case}_{grid}_{resolution}/{model}_{height}.txt'  
+            file = f'/glade/u/home/jwillson/DCMIP2016_the_tropical_cyclone_test_case/wind_rad_prof/{test_case}_{grid}_{resolution}/{model}_{height}.txt'  
             rprof = get_radprof_arr(file) #extract radial profile from text file
             max_wind = []
 

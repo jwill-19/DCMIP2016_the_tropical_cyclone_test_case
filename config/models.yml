@@ -2,49 +2,49 @@ acme-a:
     levels: "hybrid"
     positive: "down"
     25km: True
-    color: "r"
+    color: "#e6194B"  # red, old value "r"
 cam-se: 
     levels: "hybrid"
     positive: "down"
     25km: True
-    color: "g"
+    color: "#3cb44b"  # green, old value "g"
 csu_CP: 
     levels: "height"
     positive: "up"
     25km: False
-    color: "b"
+    color: "#4363d8"  # blue, old value "b"
 csu_LZ: 
     levels: "height"
     positive: "up"
     25km: False
-    color: "c"
+    color: "#a9a9a9"  # grey, old value "c"
 dynamico: 
     levels: "pressure"
-    positive: "up"    #listed as down in the data, 25km=true but wrong shape
+    positive: "up"    # listed as down in the data, 25km=true but wrong shape
     25km: False
-    color: "y"
+    color: "#ffe119"  # yellow, old value "y"
 fv3_dzlow: 
     levels: "pressure"
     positive: "down"
     25km: False
-    color: "k"
+    color: "#000000"  # black, old value "k"
 fvm: 
     levels: "height"
     positive: "up"
     25km: True
-    color: "orange"
+    color: "#FF5F1F"  # orange, old value "orange"
 gem: 
     levels: "hybrid"
     positive: "down"
     25km: True
-    color: "brown"
+    color: "#aaffc3"  # mint, old value "brown"
 icon: 
     levels: "pressure"
     positive: "down"
     25km: False
-    color: "navy"
+    color: "#000075"  # navy, old value "navy"
 nicam: 
     levels: "height"
     positive: "up"
     25km: True
-    color: "skyblue"
+    color: "#dcbeff"  # lavender, old value "skyblue"

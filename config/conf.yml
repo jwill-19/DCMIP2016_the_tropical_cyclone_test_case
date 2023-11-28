@@ -8,7 +8,7 @@ test_case: "rjpbl"
 grid: "interp_latlon"
 #grid used in analysis, options: "interp_latlon"
 
-resolution: "25km"
+resolution: "50km"
 #horizontal resolution of the models
 
 #preprocessing--------------------------------------------------------------------------------------------------------------
